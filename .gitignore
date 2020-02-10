@@ -1,0 +1,32 @@
+node_modules
+
+# dependencies
+renderer/node_modules
+renderer/.pnp
+renderer/.pnp.js
+
+# testing
+renderer/coverage
+
+# production
+renderer/build
+
+# misc
+renderer/.DS_Store
+renderer/.env.local
+renderer/.env.development.local
+renderer/.env.test.local
+renderer/.env.production.local
+
+
+renderer/npm-debug.log*
+renderer/yarn-debug.log*
+renderer/yarn-error.log*
+renderer/pnpm-error.log*
+renderer/pnpm-debug.log*
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+pnpm-error.log*
