@@ -2,7 +2,8 @@ import { baseUrl } from '../tools/config';
 
 export function get(info: RInfo) {
   return fetch(`${baseUrl}/${info.url}`, {
-    method: 'GET'
+    method: 'GET',
+    credentials: 'include'
   })
 }
 

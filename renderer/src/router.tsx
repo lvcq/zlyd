@@ -10,11 +10,13 @@ interface Props {
 export class RouterComp extends Component<Props, {}> {
   render() {
     const AppComp = loadable(() => import("./App"));
+    const LoginComp = loadable(() => import("./pages/login/login"));
     return (
       <Provider store={this.props.store}>
         <Router>
           <Switch>
             <Route path="/" component={AppComp} />
+            <Route path="/login" component={LoginComp}></Route>
           </Switch>
         </Router>
       </Provider>
