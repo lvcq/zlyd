@@ -1,0 +1,17 @@
+.init-page {
+    margin: auto;
+    width: 600px;
+    .page-title{
+        line-height: 36px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .init-form{
+        margin: 0 60px;
+    }
+    .opt-bar{
+        padding: 20px;
+        text-align: center;
+    }
+}

@@ -1,1 +1,4 @@
-export * from './system'
+import {judgeIsLogOn} from './system';
+export {
+    judgeIsLogOn
+}

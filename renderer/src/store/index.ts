@@ -8,6 +8,4 @@ export const zlydStore = combineReducers({ login })
 export interface ZlyState {
   login: LoginState
 }
-export { userLogin }
-
-export * from './login/types'
+export { userLogin };
