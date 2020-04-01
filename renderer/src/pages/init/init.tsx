@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import Alert from "@material-ui/lab/Alert";
+import { isInit,setRootInfo } from "../../api/system";
 
 interface FormItem {
   value: string;
@@ -38,7 +39,7 @@ class Init extends Component<{}, InitState> {
       noFilTip: false,
       loadingIsInited: true,
       roleName: {
-        value: "",
+        value: "root",
         error: false,
         help: "超级管理员角色名称不能为空",
         validate: (val: string) => this.validateRequire(val)
@@ -101,8 +102,6 @@ class Init extends Component<{}, InitState> {
     if (
       this.state.rootName.value &&
       !this.state.rootName.error &&
-      this.state.roleName.value &&
-      !this.state.rootName.error &&
       this.state.password.value &&
       !this.state.password.error &&
       this.state.comfirm.value &&
@@ -110,8 +109,7 @@ class Init extends Component<{}, InitState> {
       !this.state.email.error
     ) {
       return {
-        roleName: this.state.roleName.value.trim(),
-        rootName: this.state.rootName.value.trim(),
+        root_name: this.state.rootName.value.trim(),
         password: this.state.password.value.trim(),
         email: this.state.email.value.trim()
       };
@@ -122,9 +120,14 @@ class Init extends Component<{}, InitState> {
   handleSubmit() {
     const value = this.getFormValue();
     if (value) {
-      console.log(value);
+      this.setState(Object.assign({}, this.state, { loadingIsInited: true }));
+      setRootInfo(value).then(res=>{
+        if(res){
+          console.log(res)
+        }
+        this.setState(Object.assign({}, this.state, { loadingIsInited: false }));
+      })
     } else {
-      console.log(12);
       this.setState(Object.assign({}, this.state, { noFilTip: true }));
     }
   }
@@ -140,7 +143,13 @@ class Init extends Component<{}, InitState> {
     this.setState(Object.assign({}, this.state, { loadingIsInited: false }));
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    isInit().then(res => {
+      if (!res) {
+        this.handleLoadingClose();
+      }
+    });
+  }
 
   formValueChane(
     key: "roleName" | "rootName" | "password" | "comfirm" | "email",
@@ -171,6 +180,8 @@ class Init extends Component<{}, InitState> {
               margin="dense"
               value={this.state.roleName.value}
               error={this.state.roleName.error}
+              autoComplete="off"
+              disabled={true}
               helperText={
                 this.state.roleName.error ? this.state.roleName.help : ""
               }
@@ -183,6 +194,7 @@ class Init extends Component<{}, InitState> {
               required
               fullWidth
               margin="dense"
+              autoComplete="off"
               value={this.state.rootName.value}
               error={this.state.rootName.error}
               helperText={
@@ -198,6 +210,7 @@ class Init extends Component<{}, InitState> {
               required
               fullWidth
               margin="dense"
+              autoComplete="off"
               value={this.state.password.value}
               error={this.state.password.error}
               helperText={
@@ -213,6 +226,7 @@ class Init extends Component<{}, InitState> {
               required
               fullWidth
               margin="dense"
+              autoComplete="off"
               value={this.state.comfirm.value}
               error={this.state.comfirm.error}
               helperText={
@@ -265,7 +279,7 @@ class Init extends Component<{}, InitState> {
             </Alert>
           </Snackbar>
         </Paper>
-        <Backdrop open={this.state.loadingIsInited} style={{zIndex:0}}>
+        <Backdrop open={this.state.loadingIsInited} style={{ zIndex: 0 }}>
           <CircularProgress color="inherit" />
         </Backdrop>
       </div>

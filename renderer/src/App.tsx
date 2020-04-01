@@ -3,7 +3,6 @@ import "./App.scss";
 import { connect } from "react-redux";
 import { ZlyState, userLogin } from "./store";
 import { bindActionCreators, Dispatch, Action } from "redux";
-import { judgeIsLogOn } from "./api";
 import { LoginState } from "./store/login/types";
 
 interface AppProps {
@@ -18,7 +17,6 @@ class App extends Component<AppProps, {}> {
   };
 
   componentDidMount() {
-    judgeIsLogOn().then(res => {});
   }
 
   render() {

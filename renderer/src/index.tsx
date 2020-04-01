@@ -1,14 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.scss';
-import { RouterComp } from './router';
-import * as serviceWorker from './serviceWorker';
-import { zlydStore } from './store'
-import { createStore } from 'redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.scss";
+import RouterComp from "./router";
+import * as serviceWorker from "./serviceWorker";
+import { zlydStore } from "./store";
 
-const store = createStore(zlydStore);
 
-ReactDOM.render(<RouterComp store={store} />, document.getElementById('root'));
+ReactDOM.render(<RouterComp store={zlydStore} />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
