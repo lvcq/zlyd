@@ -1,31 +1,78 @@
-import { USER_LOGIN, VALIDATE_LOGIN } from "./types";
-import { judgeIsLogOn } from "../../api/system";
-import { Dispatch } from "react";
+import {
+  VALIDATE_LOGIN_PENDING,
+  VALIDATE_LOGIN_ERROR,
+  VALIDATE_LOGIN_SUCCESS,
+  LOGIN_PENDING,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR
+} from "./types";
 import { UserInfo } from "./types";
+import { FetchError } from "../../api";
 
-export interface USER_LOGIN_ACTION {
-  type: typeof USER_LOGIN;
-  username: string;
-  password: string;
+export interface VALIDATE_LOGIN_PENDING_ACTION {
+  type: typeof VALIDATE_LOGIN_PENDING;
 }
 
-export interface VALIDATE_LOGIN_ACTION {
-  type: typeof VALIDATE_LOGIN;
-  userinfo: UserInfo | null;
+export interface VALIDATE_LOGIN_SUCCESS_ACTION {
+  type: typeof VALIDATE_LOGIN_SUCCESS;
+  userinfo: UserInfo;
 }
 
-export function userLogin(username: string, password: string) {
+export interface VALIDATE_LOGIN_ERROR_ACTION {
+  type: typeof VALIDATE_LOGIN_ERROR;
+  error: FetchError;
+}
+
+export interface LOGIN_PENDING_ACTION {
+  type: typeof LOGIN_PENDING;
+}
+
+export interface LOGIN_SUCCESS_ACTION {
+  type: typeof LOGIN_SUCCESS;
+  userinfo: UserInfo;
+}
+
+export interface LOGIN_ERROR_ACTION {
+  type: typeof LOGIN_ERROR;
+  error: FetchError;
+}
+
+export function validateLoginPending() {
   return {
-    type: USER_LOGIN,
-    username,
-    password
+    type: VALIDATE_LOGIN_PENDING
   };
 }
 
-export function validateLogin() {
-  return (dispatch: Dispatch<VALIDATE_LOGIN_ACTION>) => {
-    judgeIsLogOn().then(res => {
-      dispatch({ type: VALIDATE_LOGIN, userinfo: res });
-    });
+export function validateLoginSuccess(userinfo: UserInfo) {
+  return {
+    type: VALIDATE_LOGIN_SUCCESS,
+    userinfo
+  };
+}
+
+export function validateLoginError(error: FetchError) {
+  return {
+    type: VALIDATE_LOGIN_ERROR,
+    error
+  };
+}
+
+export function loginPending() {
+  return {
+    type: LOGIN_PENDING
+  };
+}
+
+export function loginSuccess(userinfo: UserInfo) {
+  return {
+    type: LOGIN_SUCCESS,
+    userinfo
+  };
+}
+
+export function loginError(error: FetchError) {
+  return {
+    type: LOGIN_ERROR,
+    error
   };
 }

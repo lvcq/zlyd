@@ -1,11 +1,22 @@
-export const USER_LOGIN = "USER_LOGIN"
-export const VALIDATE_LOGIN = "VALIDATE_LOGIN"
+import { FetchError } from "../../api";
+/** 验证是否登录 */
+export const VALIDATE_LOGIN_PENDING = "VALIDATE_LOGIN_PENDING";
+export const VALIDATE_LOGIN_SUCCESS = "VALIDATE_LOGIN_SUCCESS";
+export const VALIDATE_LOGIN_ERROR = "VALIDATE_LOGIN_ERROR";
+/** 用户登录 */
+export const LOGIN_PENDING = "LOGIN_PENDING";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_ERROR = "LOGIN_ERROR";
 
 export interface LoginState {
-  isLogin: boolean;
-  userInfo?:UserInfo
+  validatePending: boolean;
+  userInfo: UserInfo | null;
+  fetchError?: FetchError;
+  notlogin: boolean;
+  loginPending:boolean;
+  loginFail:boolean;
 }
 
-export interface UserInfo{
-  userName:string;
+export interface UserInfo {
+  userName: string;
 }

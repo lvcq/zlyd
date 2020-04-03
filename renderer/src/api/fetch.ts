@@ -10,14 +10,14 @@ export function get<T>(info: RInfo): Promise<T> {
         return res.json();
       })
       .then((json: ResponseJson<T>) => {
-        if (json.success) {
+        if (json.success && json.code === 20000) {
           resolve(json.data);
         } else {
-          reject(json.message);
+          reject({ code: json.code, msg: json.message });
         }
       })
       .catch(err => {
-        reject("网络错误");
+        reject({ code: 0, msg: "网络错误" });
       });
   });
 }
@@ -39,14 +39,14 @@ export function postJson<T>(info: RInfo): Promise<T> {
         return res.json();
       })
       .then((json: ResponseJson<T>) => {
-        if (json.success) {
+        if (json.success && json.code === 20000) {
           resolve(json.data);
         } else {
-          reject(json.message);
+          reject({ code: json.code, msg: json.message });
         }
       })
       .catch(err => {
-        reject("网络错误");
+        reject({ code: 0, msg: "网络错误" });
       });
   });
 }
@@ -60,5 +60,6 @@ export interface RInfo {
 export interface ResponseJson<T> {
   success: boolean;
   message: string;
+  code: number;
   data: T;
 }

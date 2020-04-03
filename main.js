@@ -11,7 +11,7 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  win.loadURL('http://localhost:3000')
+  win.loadURL('http://localhost:3000/')
 
   // 打开开发者工具
   win.webContents.openDevTools()

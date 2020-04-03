@@ -5,7 +5,7 @@ export function judgeIsLogOn() {
   const info: RInfo = {
     url: "validate-logon"
   };
-  return get<UserInfo | null>(info);
+  return get<UserInfo>(info);
 }
 
 export function isInit() {
@@ -21,4 +21,12 @@ export function setRootInfo(data: any) {
     data
   };
   return postJson<boolean>(req);
+}
+
+export function userLoginApi(data: any) {
+  const req: RInfo = {
+    url: "user-login",
+    data
+  };
+  return postJson<UserInfo>(req);
 }

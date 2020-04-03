@@ -14,6 +14,8 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "crypto-js": "^4.0.0",
+    "js-sha3": "^0.8.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",
@@ -46,11 +48,13 @@
     ]
   },
   "devDependencies": {
+    "@types/crypto-js": "^3.1.44",
     "@types/loadable__component": "^5.10.0",
     "@types/react-redux": "^7.1.7",
     "@types/react-router": "^5.1.4",
     "@types/react-router-dom": "^5.1.3",
     "@types/testing-library__react": "^9.1.2",
-    "node-sass": "^4.13.1"
+    "node-sass": "^4.13.1",
+    "wasm-loader": "^1.3.0"
   }
 }

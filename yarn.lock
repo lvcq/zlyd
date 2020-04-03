@@ -18,6 +18,11 @@
     global-agent "^2.0.2"
     global-tunnel-ng "^2.7.1"
 
+"@lvcq/zlygl@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@lvcq/zlygl/-/zlygl-0.1.0.tgz#e7e1f1af89fc48482b327114399b1f74973fbcac"
+  integrity sha512-7j8pwGOGYFs6H//M6ivW5T8o453bdEc5kSZNSTkVm8/MRi8sT3SrAXVSpA3zKmy2ilHoZodFYYFz0CzNkoAYZg==
+
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
