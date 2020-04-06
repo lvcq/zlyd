@@ -7,6 +7,7 @@ export const VALIDATE_LOGIN_ERROR = "VALIDATE_LOGIN_ERROR";
 export const LOGIN_PENDING = "LOGIN_PENDING";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_ERROR = "LOGIN_ERROR";
+export const CLOSE_LOGIN_ERROR_INFO= "CLOSE_LOGIN_ERROR_INFO";
 
 export interface LoginState {
   validatePending: boolean;

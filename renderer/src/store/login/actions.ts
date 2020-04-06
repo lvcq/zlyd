@@ -4,7 +4,8 @@ import {
   VALIDATE_LOGIN_SUCCESS,
   LOGIN_PENDING,
   LOGIN_SUCCESS,
-  LOGIN_ERROR
+  LOGIN_ERROR,
+  CLOSE_LOGIN_ERROR_INFO
 } from "./types";
 import { UserInfo } from "./types";
 import { FetchError } from "../../api";
@@ -35,6 +36,10 @@ export interface LOGIN_SUCCESS_ACTION {
 export interface LOGIN_ERROR_ACTION {
   type: typeof LOGIN_ERROR;
   error: FetchError;
+}
+
+export interface CLOSE_LOGIN_ERROR_INFO_ACTION {
+  type: typeof CLOSE_LOGIN_ERROR_INFO;
 }
 
 export function validateLoginPending() {
@@ -74,5 +79,11 @@ export function loginError(error: FetchError) {
   return {
     type: LOGIN_ERROR,
     error
+  };
+}
+
+export function closeLoginInfo() {
+  return {
+    type: CLOSE_LOGIN_ERROR_INFO
   };
 }

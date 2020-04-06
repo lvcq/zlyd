@@ -4,7 +4,8 @@ import {
   VALIDATE_LOGIN_ERROR_ACTION,
   LOGIN_PENDING_ACTION,
   LOGIN_ERROR_ACTION,
-  LOGIN_SUCCESS_ACTION
+  LOGIN_SUCCESS_ACTION,
+  CLOSE_LOGIN_ERROR_INFO_ACTION
 } from "./actions";
 import {
   LoginState,
@@ -13,7 +14,8 @@ import {
   VALIDATE_LOGIN_ERROR,
   LOGIN_PENDING,
   LOGIN_SUCCESS,
-  LOGIN_ERROR
+  LOGIN_ERROR,
+  CLOSE_LOGIN_ERROR_INFO
 } from "./types";
 
 type ActionType =
@@ -22,7 +24,8 @@ type ActionType =
   | VALIDATE_LOGIN_ERROR_ACTION
   | LOGIN_PENDING_ACTION
   | LOGIN_SUCCESS_ACTION
-  | LOGIN_ERROR_ACTION;
+  | LOGIN_ERROR_ACTION
+  | CLOSE_LOGIN_ERROR_INFO_ACTION;
 
 const initLoginState: LoginState = {
   validatePending: false,
@@ -70,6 +73,11 @@ export const login = (state = initLoginState, action: ActionType) => {
         loginPending: false,
         loginFail: true,
         fetchError: action.error
+      };
+    case CLOSE_LOGIN_ERROR_INFO:
+      return {
+        ...state,
+        loginFail: false
       };
     default:
       return state;

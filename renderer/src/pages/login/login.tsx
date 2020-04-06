@@ -11,25 +11,30 @@ import {
   TextField,
   InputAdornment,
   IconButton,
-  Button
+  Button,
+  Snackbar,
+  Grow
 } from "@material-ui/core";
 import { withRouter, RouteComponentProps } from "react-router";
 import { ZlyState } from "../../store";
 import { Action, Dispatch, bindActionCreators } from "redux";
 import { LoginState as LoginStore } from "../../store/login/types";
 import { FormItem } from "../../model/model";
-import { userLogin } from "../../store/login/login";
+import { userLogin, closeLoginErrorInfo } from "../../store/login/login";
 import "./login.scss";
-import  {greet} from "@lvcq/zlygl";
+import Alert from "@material-ui/lab/Alert";
+import { TransitionProps } from "@material-ui/core/transitions/transition";
 
 interface LoginProps extends RouteComponentProps {
   login: LoginStore;
   userLogin: (username: string, password: string) => void;
+  closeLoginErrorInfo: () => void;
 }
 interface LoginState {
   username: FormItem;
   password: FormItem;
   showPassword: boolean;
+  showLoginError: boolean;
 }
 
 class Login extends Component<LoginProps, LoginState> {
@@ -52,7 +57,8 @@ class Login extends Component<LoginProps, LoginState> {
           return v.trim().length > 0;
         }
       },
-      showPassword: false
+      showPassword: false,
+      showLoginError: false
     };
   }
 
@@ -76,7 +82,6 @@ class Login extends Component<LoginProps, LoginState> {
   }
 
   handleSubmit() {
-    greet("rust wasm!");
     if (
       !this.state.username.error &&
       this.state.username.value.trim() &&
@@ -88,6 +93,13 @@ class Login extends Component<LoginProps, LoginState> {
         this.state.password.value.trim()
       );
     }
+  }
+
+  handleLoginErrorTipClose(event?: React.SyntheticEvent, reason?: string) {
+    if (reason === "clickaway") {
+      return;
+    }
+    this.setState(Object.assign({}, this.state, { showLoginError: false }));
   }
 
   render() {
@@ -116,6 +128,37 @@ class Login extends Component<LoginProps, LoginState> {
           {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
         </IconButton>
       </InputAdornment>
+    );
+
+    const GrowTransition = (props: TransitionProps) => {
+      return <Grow {...props} />;
+    };
+
+    let loginErrorBar = (
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={loginFail}
+        TransitionComponent={GrowTransition}
+        autoHideDuration={3000}
+        onClose={(event?: React.SyntheticEvent, reason?: string) => {
+          if (reason !== "clickaway") {
+            this.props.closeLoginErrorInfo();
+          }
+        }}
+      >
+        <Alert
+          severity="error"
+          elevation={6}
+          variant="filled"
+          onClose={(event?: React.SyntheticEvent, reason?: string) => {
+            if (reason !== "clickaway") {
+              this.props.closeLoginErrorInfo();
+            }
+          }}
+        >
+          {this.props.login.fetchError?.msg}
+        </Alert>
+      </Snackbar>
     );
     return (
       <div className="login-container">
@@ -165,6 +208,7 @@ class Login extends Component<LoginProps, LoginState> {
             </Button>
           </div>
         </Paper>
+        {loginErrorBar}
       </div>
     );
   }
@@ -175,6 +219,6 @@ function mapStateToProps(state: ZlyState) {
 }
 
 function mapDispatchToProps(dispatch: Dispatch<Action>) {
-  return bindActionCreators({ userLogin }, dispatch);
+  return bindActionCreators({ userLogin, closeLoginErrorInfo }, dispatch);
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
