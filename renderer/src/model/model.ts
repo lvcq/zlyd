@@ -4,3 +4,8 @@ export interface FormItem {
   help: string;
   validate: (arg0: string) => boolean;
 }
+
+export interface FetchErrorInfo{
+  code:number;
+  msg:string;
+}

@@ -5,6 +5,7 @@ import {
   validateLoginSuccess,
   validateLoginError
 } from "./actions";
+import { push } from "connected-react-router";
 
 export function validateLogin() {
   return (dispatch: Dispatch<any>) => {
@@ -15,6 +16,7 @@ export function validateLogin() {
       })
       .catch(err => {
         dispatch(validateLoginError(err));
+        dispatch(push("/zly"));
       });
   };
 }

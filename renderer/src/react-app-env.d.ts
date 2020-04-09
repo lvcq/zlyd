@@ -9,6 +9,11 @@ declare namespace NodeJS {
   }
 }
 
+declare module '*.wasm' {
+  const wasm: string;
+  export default wasm;
+}
+
 declare module '*.bmp' {
   const src: string;
   export default src;
