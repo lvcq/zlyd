@@ -3,20 +3,23 @@ import { Dispatch } from "react";
 import {
   validateLoginPending,
   validateLoginSuccess,
-  validateLoginError
+  validateLoginError,
 } from "./actions";
 import { push } from "connected-react-router";
+import { fetchStorageList } from "../storage/storage";
+import { Action } from "redux";
 
 export function validateLogin() {
-  return (dispatch: Dispatch<any>) => {
+  return (dispatch: Dispatch<Action>) => {
     dispatch(validateLoginPending());
     judgeIsLogOn()
-      .then(res => {
+      .then((res) => {
         dispatch(validateLoginSuccess(res));
+        fetchStorageList()(dispatch as any);
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(validateLoginError(err));
-        dispatch(push("/zly"));
+        dispatch(push("/login"));
       });
   };
 }
