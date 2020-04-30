@@ -72,6 +72,7 @@ export const homeStyle = (theme: Theme) =>
     },
     subContent: {
       flexGrow: 1,
+      overflow:'hidden'
     },
     fab: {
       position: "absolute",

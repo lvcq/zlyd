@@ -28,8 +28,15 @@ interface FabMenuProps
 interface FabMenuState {}
 
 class FabMenu extends Component<FabMenuProps, FabMenuState> {
-  handerGotoAddStorage() {
+  handleGotoAddStorage() {
     this.props.history.push("/zly/add-storage");
+    if (this.props.onClose) {
+      this.props.onClose({}, "backdropClick");
+    }
+  }
+
+  handleGotoFileUpload() {
+    this.props.history.push("/zly/file-upload");
     if (this.props.onClose) {
       this.props.onClose({}, "backdropClick");
     }
@@ -51,13 +58,13 @@ class FabMenu extends Component<FabMenuProps, FabMenuState> {
         }}
         onClose={this.props.onClose}
       >
-        <MenuItem onClick={this.handerGotoAddStorage.bind(this)}>
+        <MenuItem onClick={this.handleGotoAddStorage.bind(this)}>
           <ListItemIcon>
             <MuseumIcon />
           </ListItemIcon>
           <ListItemText primary="新建空间"></ListItemText>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={this.handleGotoFileUpload.bind(this)}>
           <ListItemIcon>
             <CloudUploadIcon />
           </ListItemIcon>

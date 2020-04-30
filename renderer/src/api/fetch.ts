@@ -4,9 +4,9 @@ export function get<T>(info: RInfo): Promise<T> {
   return new Promise((resolve, reject) => {
     fetch(`${baseUrl}/${info.url}`, {
       method: "GET",
-      credentials: "include"
+      credentials: "include",
     })
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
       .then((json: ResponseJson<T>) => {
@@ -16,7 +16,7 @@ export function get<T>(info: RInfo): Promise<T> {
           reject({ code: json.code, msg: json.message });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         reject({ code: 0, msg: "网络错误" });
       });
   });
@@ -30,12 +30,12 @@ export function postJson<T>(info: RInfo): Promise<T> {
       credentials: "include",
       headers: Object.assign(
         {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         info.headers
-      )
+      ),
     })
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
       .then((json: ResponseJson<T>) => {
@@ -45,7 +45,41 @@ export function postJson<T>(info: RInfo): Promise<T> {
           reject({ code: json.code, msg: json.message });
         }
       })
-      .catch(err => {
+      .catch((err) => {
+        reject({ code: 0, msg: "网络错误" });
+      });
+  });
+}
+
+export function postFormData<T>(info: RInfo) {
+  const fdata = new FormData();
+  if (info.data) {
+    Reflect.ownKeys(info.data).forEach((key) => {
+      fdata.append(String(key), Reflect.get(info.data as any, key));
+    });
+  }
+
+  return new Promise<T>((resolve, reject) => {
+    fetch(`${baseUrl}/${info.url}`, {
+      body: fdata,
+      method: "POST",
+      credentials: "include",
+      headers: Object.assign(
+        {},
+        info.headers
+      ),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((json: ResponseJson<T>) => {
+        if (json.success && json.code === 20000) {
+          resolve(json.data);
+        } else {
+          reject({ code: json.code, msg: json.message });
+        }
+      })
+      .catch((err) => {
         reject({ code: 0, msg: "网络错误" });
       });
   });

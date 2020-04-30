@@ -37,7 +37,7 @@ class AddStorage extends Component<StorageProps, StorageState> {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, addNewPending } = this.props;
     return (
       <div className={classes.root}>
         <form autoComplete="off">
@@ -55,6 +55,7 @@ class AddStorage extends Component<StorageProps, StorageState> {
             variant="contained"
             style={{ width: "180px" }}
             color="primary"
+            disabled={addNewPending}
             onClick={() => this.addNewStorage()}
           >
             新建空间

@@ -144,8 +144,9 @@ class HomePage extends Component<HomeProps, HomeData> {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <div className={classes.subContent}></div>
+          <div className={classes.subContent}>
           <ZlyRouter />
+          </div>
           <Fab
             className={classes.fab}
             color="primary"
